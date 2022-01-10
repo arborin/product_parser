@@ -1,0 +1,60 @@
+# INSTALL pip3 and modules
+sudo apt install python3-pip
+pip3 install schedule
+sudo apt-get install -y python3-bs4
+ 
+
+# INSTALL CHROME
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+
+
+# INSTALL UNZIP
+sudo apt install -y unzip xvfb libxi6 libgconf-2-4 
+ 
+# INSTALL CHROMEDRIVER
+wget https://chromedriver.storage.googleapis.com/97.0.4692.71/chromedriver_linux64.zip
+unzip chromedriver_linux64.zip
+sudo mv chromedriver /usr/bin/chromedriver 
+sudo chown root:root /usr/bin/chromedriver 
+sudo chmod +x /usr/bin/chromedriver 
+
+
+# INSTALL SELENIUM
+pip3 install -U cryptography
+pip3 install selenium
+
+
+# INSTALL SCREEN
+sudo apt-get install -y screen
+
+
+# CREATE FILE run_script.sh and copy/paste this content
+# PLEASE WRITE CORRECT SCRIPT PATH (this location /home/user/web_scrapping/evisaforms.py will be other )
+# (it starts #!/bin/bash)
+#------------------------------------------------------------------------------------
+#!/bin/bash
+export DISPLAY=:0
+
+screen -XS scrap quit
+screen -dmS scrap /usr/bin/python3 /home/user/web_scrapping/evisaforms.py
+#------------------------------------------------------------------------------------
+
+
+
+# WRITE CRON PARAMETERES TO RUN SCRIPT AFTER REBOOT
+sudo nano /etc/crontab
+
+# WRITE THIS LINE AT THE END
+# WRITE YOUR username insted of user and correct script paths
+
+@reboot user cd /home/user/web_scrapping/ && ./run_script.sh
+
+# SAVE FILE ctrl+x
+# press Y
+
+
+
+
+
+

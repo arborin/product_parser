@@ -12,6 +12,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+print("All modules loaded")
+
 
 
 def job():
@@ -46,9 +48,11 @@ def job():
 
     # YELLO COLOR / UNCOMMENT THIS
     # alert_color = "#ffffc0";
+    
     #=====================================================================================
     # END CONFIGURATION
     #=====================================================================================
+    
     # FOR TESTING
     begin_time = datetime.datetime.now()
     # OPEN URL
@@ -97,7 +101,9 @@ def job():
 
         # IF FIND ANY DAY SEND EMAIL
         if len(alert_day_low)>0 or len(alert_day_up)>0:
-            # EMAIL SETTINGS 
+            # EMAIL SETTINGS
+            # PLEASE CHANGE EMAIL ADDRESSES
+          
             mail_content = '''Email Text On alert'''
             sender_address = 'developmentmail36@gmail.com'
             sender_pass = 'c831385ef5eec6'
