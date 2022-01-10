@@ -1,13 +1,31 @@
-from bs4 import BeautifulSoup
-from selenium import webdriver
-from selenium.webdriver import Chrome
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
+# pip3 install schedule
+# sudo apt-get install -y python3-bs4
+# install selinume
+# 
+# wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+# sudo dpkg -i google-chrome-stable_current_amd64.deb
+# sudo apt install -y unzip xvfb libxi6 libgconf-2-4 
+# wget https://chromedriver.storage.googleapis.com/97.0.4692.71/chromedriver_linux64.zip
+# unzip chromedriver_linux64.zip
+# sudo mv chromedriver /usr/bin/chromedriver 
+# sudo chown root:root /usr/bin/chromedriver 
+# sudo chmod +x /usr/bin/chromedriver 
+# pip3 install selenium
+# sudo apt-get install -y screen
+#
+#
+#
+
 import time
 import datetime
 import smtplib
+from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver import Chrome
+# from selenium.webdriver.common.keys import Keys
+# from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
+# from selenium.webdriver.support.ui import WebDriverWait
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
