@@ -21,45 +21,6 @@ print("All modules loaded")
 
 
 
-
-
-def set_send_status(status):
-    json_data = {"send_mail": status}
-    
-    with open('data.json', 'w') as fp:    
-        json.dump(json_data, fp)
-
-
-def get_send_status():
-    with open('data.json', 'r') as fp:    
-        data = json.load(fp)
-    return data['send_mail']
-
-
-def send_mail_request(email_address, message):
-    # WEBHOOK URL
-    url = "https://hook.integromat.com/mpad48u26x4cghg222uq9x6774727wmt"
-    # WEBHOOK PARAMETERS
-    post_data = {'email_address': email_address, 'message': message}
-    # SEND POST REQUEST
-    response = False
-
-    try:
-        response = requests.post(url, data = post_data)
-    except Exception as e:
-        print("REQUEST SEND ERROR: {}".format(e)) 
-
-    return response
-
-
-
-# RESET DATA WHEN SCRIPT RUNS FIRST
-# SET SEND STATYS ENABLE BY DEFAULT
-set_send_status(1)
-
-
-
-
 def set_send_status(status):
     json_data = {"send_mail": status}
     
@@ -224,15 +185,6 @@ def job():
 
                 print('[INFO] - {} - Mail Sent'.format(curtime))
                 
-            if get_send_status():
-                # CALL integromat REQUEST SENDER FUNCTION
-                send_mail_request("nika.kobaidze@gmail.com", "Mail text")
-                
-                # DISABLE REQUEST SENDING
-                set_send_status(0)
-
-                print('[INFO] - {} - Mail Sent'.format(curtime))
-
             else:
                 print('[INFO] - {} - Disable Mail Sending...'.format(curtime))
         else:
