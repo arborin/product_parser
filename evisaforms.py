@@ -13,10 +13,7 @@ from selenium.webdriver.support.ui import Select
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import json
-<<<<<<< HEAD
 import requests
-=======
->>>>>>> b92591e0aa2a97888e990fefa6d05943c4a63d04
 
 print("All modules loaded")
 
@@ -140,10 +137,6 @@ def job():
         # GET PAGE CONTENT
         html = driver.page_source
         time.sleep(2)
-<<<<<<< HEAD
-
-=======
->>>>>>> b92591e0aa2a97888e990fefa6d05943c4a63d04
         # GO TO NEXT MONTH
         month_select = Select(driver.find_element_by_id('Select1'))
         year_select =  Select(driver.find_element_by_id('Select2'))
@@ -166,14 +159,7 @@ def job():
 
         next_month_html = driver.page_source
         
-<<<<<<< HEAD
         # CLOSE THE BROWSER
-=======
-        
-        # print(next_month_html)
-        # input("test")
-        # CLOSE BROWSER
->>>>>>> b92591e0aa2a97888e990fefa6d05943c4a63d04
         driver.quit()
 
     except:
@@ -197,23 +183,15 @@ def job():
 
         next_alert_day_low = next_calendar_table.find_all("td", attrs={'bgcolor': alert_color.lower()})
         next_alert_day_up = next_calendar_table.find_all("td", attrs={'bgcolor': alert_color.upper()})
-<<<<<<< HEAD
 
 
         
         # IF FIND ANY APPOINTMENT DAYS (IN CURRENT MONTH OR IN THE NEXT MONTH), SEND REQUEST
-=======
-
-
-        
-        # IF FIND ANY DAY SEND EMAIL
->>>>>>> b92591e0aa2a97888e990fefa6d05943c4a63d04
         if (
             len(alert_day_low)>0 or len(alert_day_up)>0 or
             len(next_alert_day_low)>0 or len(next_alert_day_up)>0
             ):
 
-<<<<<<< HEAD
             if get_send_status():
                 # CALL integromat REQUEST SENDER FUNCTION
                 send_mail_request("nika.kobaidze@gmail.com", "Mail text")
@@ -223,34 +201,6 @@ def job():
 
                 print('[INFO] - {} - Mail Sent'.format(curtime))
                 
-=======
-            # EMAIL SETTINGS
-            # PLEASE CHANGE EMAIL ADDRESSES
-            if get_send_status():
-                mail_content = '''Email Text On alert'''
-                sender_address = 'developmentmail36@gmail.com'
-                sender_pass = 'c831385ef5eec6'
-                receiver_address = 'nika.kobaidze@gmail.com'
-                subject = "Alert"
-                #Setup the MIME
-                message = MIMEMultipart()
-                message['From'] = sender_address
-                message['To'] = receiver_address
-                message['Subject'] = subject 
-                message.attach(MIMEText(mail_content, 'plain'))
-                #Create SMTP session for sending the mail
-                session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
-                session.starttls() #enable security
-                session.login(sender_address, sender_pass) #login with mail_id and password
-                text = message.as_string()
-                session.sendmail(sender_address, receiver_address, text)
-                session.quit()
-
-                # SEND EMAIL AND DISABLE MAIL SENDING
-                set_send_status(0)
-
-                print('[INFO] - {} - Mail Sent'.format(curtime))
->>>>>>> b92591e0aa2a97888e990fefa6d05943c4a63d04
             else:
                 print('[INFO] - {} - Disable Mail Sending...'.format(curtime))
         else:
