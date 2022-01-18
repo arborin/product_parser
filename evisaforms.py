@@ -15,27 +15,9 @@ from email.mime.text import MIMEText
 import json
 import requests
 
+
+
 print("All modules loaded")
-
-# RESET DATA WHEN SCRIPT RUNS FIRST
-# file = open('data.json', 'w');
-
-
-
-def set_send_status(status):
-    json_data = {"send_mail": status}
-    with open('data.json', 'w') as fp:    
-        json.dump(json_data, fp)
-
-def get_send_status():
-    with open('data.json', 'r') as fp:    
-        data = json.load(fp)
-    return data['send_mail']
-
-
-# SET SEND STATYS ENABLE BY DEFAULT
-set_send_status(1)
-
 
 
 
@@ -137,6 +119,8 @@ def job():
         # GET PAGE CONTENT
         html = driver.page_source
         time.sleep(2)
+
+
         # GO TO NEXT MONTH
         month_select = Select(driver.find_element_by_id('Select1'))
         year_select =  Select(driver.find_element_by_id('Select2'))
@@ -158,8 +142,8 @@ def job():
             month_select.select_by_value(next_month)
 
         next_month_html = driver.page_source
-        
-        # CLOSE THE BROWSER
+
+
         driver.quit()
 
     except:
@@ -185,7 +169,6 @@ def job():
         next_alert_day_up = next_calendar_table.find_all("td", attrs={'bgcolor': alert_color.upper()})
 
 
-        
         # IF FIND ANY APPOINTMENT DAYS (IN CURRENT MONTH OR IN THE NEXT MONTH), SEND REQUEST
         if (
             len(alert_day_low)>0 or len(alert_day_up)>0 or
