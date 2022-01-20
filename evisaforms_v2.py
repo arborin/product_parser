@@ -157,7 +157,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(prog='parsePlotSens');
     parser.add_argument('--url', required=True, help="Target page url")
-    parser.add_argument('--radio', required=True, choices=['AA', '02B', '09'], help="Apache log type [Passport services, Report the birth abroad, Request notarial]")
+    parser.add_argument('--radio', required=True, help="Apache log type [Passport services, Report the birth abroad, Request notarial]")
     parser.add_argument('--color', required=True, choices=['ADD9F4', 'ffffc0'], help="Calendar day colors [BLUE, YELLOW]")
     parser.add_argument('--integromat', required=True, help="Integromat url")
     
