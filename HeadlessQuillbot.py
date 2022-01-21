@@ -23,6 +23,19 @@ class HeadlessQuillbot(HeadlessChrome):
         in_textbox[0].send_keys(full_text)
         
 
+       
+        # for scroll in scroll_class:
+            
+        #     val = scroll.get_attribute("data-index")
+        #     print(val)
+        #     if val == 3:
+        #         scroll.click()
+        #         break
+            
+           
+        time.sleep(time_allowance_for_processing)
+        
+
         # summarize_btn = "/html/body/div[1]/div[2]/div[3]/div/div/div[1]/div/div/div/div[2]/div[3]/div[1]/div/div/div/div[2]/div/div/div/button"
         # summarize_btn  = WebDriverWait(self.driver, 50).until(
         #     EC.presence_of_all_elements_located((By.XPATH, summarize_btn)))
@@ -41,7 +54,21 @@ class HeadlessQuillbot(HeadlessChrome):
 
         output_summary_textbox = WebDriverWait(self.driver, 20).until(EC.visibility_of_all_elements_located((By.ID, "outputBoxSummarizer")))
         summary = output_summary_textbox[0].text
-        
+        print("========================================")
+        print(summary)
+        print("========================================")
+
+        # summary_btn = self.driver.find_element((By.XPATH, "//span[text()='Paraphrase Summary']"))
+        summary_btn = self.driver.find_element(By.XPATH, "//span[text()='Paraphrase Summary']")
+        summary_btn.click()
+
+        time.sleep(time_allowance_for_processing)
+
+        output_summary_textbox = WebDriverWait(self.driver, 20).until(EC.visibility_of_all_elements_located((By.ID, "outputText")))
+        summary = output_summary_textbox[0].text
+
+
+
         return summary
 
 def main():
@@ -50,6 +77,10 @@ def main():
 
     headless.get_page('https://quillbot.com/summarize')
     summary = headless.summarize_text("Hello. How are you?")
+
+    # PE
+    print("----------------------------------------")
     print(summary)
+    print("----------------------------------------")
     
 main()
