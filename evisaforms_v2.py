@@ -22,17 +22,20 @@ print("All modules loaded")
 
 class Visa:
 
-    def __init__(self, url, radio, color, integromat_url):
+    def __init__(self, url, radio, color, integromat_url, scrapper_id):
         self.url = url
         self.radio = radio
         self.color = f'#{color}'
         self.integromat_url = integromat_url
+        self.scrapper_id = scrapper_id
 
         self.browser_config()
 
 
     def send_mail_request(self):
-        response = requests.post(url)
+        post_data = {'id': self.scrapper_id}
+
+        response = requests.post(url, data = post_data)
         return response
 
 
@@ -51,6 +54,7 @@ class Visa:
         options.add_experimental_option('useAutomationExtension', False)
         options.add_experimental_option("excludeSwitches", ["enable-automation"])
         options.add_argument("disable-infobars")
+        options.add_argument('--log-level=3')
         webdriver.DesiredCapabilities.CHROME['acceptSslCerts'] = True
 
         # CHANGE CHROMEDRIVER PATH
@@ -69,19 +73,19 @@ class Visa:
         time.sleep(5)
 
         # GET FIRST INPUT FROM PAGE AND CLICK
-        buttons = self.driver.find_element_by_tag_name("input").click()
+        buttons = self.driver.find_element(By.TAG_NAME, "input").click()
         time.sleep(5)
 
         # CLICK TO SECOND RADIOBOX
-        self.driver.find_element_by_xpath(f"//input[@value='{self.radio}']").click()
+        self.driver.find_element(By.XPATH, f"//input[@value='{self.radio}']").click()
         time.sleep(1)
 
         # CLICK CHECKBOX
-        self.driver.find_element_by_xpath("//input[@name='chkbox01']").click()
+        self.driver.find_element(By.XPATH, "//input[@name='chkbox01']").click()
         time.sleep(1)
 
         # CLICK SUBMIT
-        self.driver.find_element_by_xpath("//input[@type='submit']").click()
+        self.driver.find_element(By.XPATH, "//input[@type='submit']").click()
 
         # GET PAGE CONTENT
         html = self.driver.page_source
@@ -89,8 +93,8 @@ class Visa:
 
 
         # GO TO NEXT MONTH
-        month_select = Select(self.driver.find_element_by_id('Select1'))
-        year_select =  Select(self.driver.find_element_by_id('Select2'))
+        month_select = Select(self.driver.find_element(By.ID, 'Select1'))
+        year_select =  Select(self.driver.find_element(By.ID, 'Select2'))
 
 
         cur_month = datetime.datetime.now().month
@@ -160,6 +164,7 @@ if __name__ == "__main__":
     parser.add_argument('--radio', required=True, help="Apache log type [Passport services, Report the birth abroad, Request notarial]")
     parser.add_argument('--color', required=True, choices=['ADD9F4', 'ffffc0'], help="Calendar day colors [BLUE, YELLOW]")
     parser.add_argument('--integromat', required=True, help="Integromat url")
+    parser.add_argument('--id', required=True, help="Scrapper ID")
     
     option = parser.parse_args()
     
@@ -169,10 +174,11 @@ if __name__ == "__main__":
     radio = option.radio
     color = option.color
     integromat_url = option.integromat
+    scrapper_id = option.id
 
       
     # CREATE CLASS OBJECT AND RUN TASK
-    scrap = Visa(url, radio, color, integromat_url)
+    scrap = Visa(url, radio, color, integromat_url, scrapper_id)
     scrap.run_task()
 
 
